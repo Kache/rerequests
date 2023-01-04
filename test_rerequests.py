@@ -95,7 +95,7 @@ def test_convenience_api():
         requests.get('https://instacart.com')
 
         assert objs.capture_timeout() == requests.DEFAULT_TIMEOUT
-        assert objs.capture_retry() == Retry(0), "Conveience API should have 0 retries by default"
+        assert objs.capture_retry() == Retry(0), "Convenience API should have 0 retries by default"
 
     with capture_retry_and_timeout() as objs:
         requests.put('https://instacart.com', max_retries=2, timeout=5)

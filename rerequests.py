@@ -20,18 +20,18 @@ And provides the following extensions:
 
 Examples:
 
-  >>> import rerequests as requests  # drop-in replacement
+    >>> import utils.rerequests as requests  # drop-in replacement
 
-  >>> # as normal, but with timeouts by default (and no retries)
-  >>> requests.get(URL)
-  >>> requests.get(URL, timeout=(3.05, 27))  # override default
+    >>> # as normal, but with timeouts by default (and no retries)
+    >>> requests.get(URL)
+    >>> requests.get(URL, timeout=(3.05, 27))  # override default
 
-  >>> # accessible retry config
-  >>> requests.post(URL, max_retries=10)  # retry transient errors despite POST
-  >>> requests.put(URL, max_retries=requests.Retry(5, **more_config)
+    >>> # accessible retry config
+    >>> requests.post(URL, max_retries=10)  # retry transient errors despite POST
+    >>> requests.put(URL, max_retries=requests.Retry(5, **more_config))
 
-  >>> # automatically response.raise_for_status(), with logging
-  >>> requests.delete(URL, hooks=requests.http_raise)
+    >>> # automatically response.raise_for_status(), with logging
+    >>> requests.delete(URL, hooks=requests.http_raise)
 
 Resources:
  * https://en.wikipedia.org/wiki/Exponential_backoff#Truncated_exponential_backoff
@@ -76,7 +76,7 @@ class Retry(urllib3.util.Retry):
         self,
         total=3,                            # num retries, i.e. 4 requests in total
         status_forcelist=TRANSIENT_ERRORS,
-        allowed_methods=False,              # retry all methods when instantiating manually
+        allowed_methods=None,               # retry all methods when instantiating manually/explicitly
         backoff_factor=1,                   # retry after 1, 2, 4, 8, ...
         **kwargs,
     ):
